@@ -7,8 +7,8 @@
       <input type="text" id="post-title" name="post-title" />
     </div>
     <div>
-      <label for="post-url">Link</label>
-      <input id="post-url" name="post-url" />
+      <label for="content">Content</label>
+      <textarea id="content" name="content"></textarea>
     </div>
     <button type="submit" class="btn">Create</button>
   </form>
@@ -18,10 +18,20 @@
 <section>
   <h2>Your Posts</h2>
   <ol>
-    {{#each posts as |post|}}
+    {{#each posts}}
     <li>
-      {{> post-info post}}
-      <a href="/dashboard/edit/{{post.id}}" class="edit-link">Edit post</a>
+      <article class="post">
+  <div class="title">
+    <a href="{{content}}" target="_blank">{{title}}</a>
+    <span>({{ content}})</span>
+  </div>
+  <div class="meta">
+    {{vote_count}} {{format_plural "point" vote_count}} by {{user.username}} on {{format_date created_at}}
+    |
+    <a href="/post/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+  </div>
+</article>
+      <a href="/dashboard/edit/{{id}}" class="edit-link">Edit post</a>
     </li>
     {{/each}}
   </ol>
